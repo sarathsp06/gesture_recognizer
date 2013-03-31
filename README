@@ -1,0 +1,5 @@
+The program is intented to do gesture recognition using accelerometer data
+	1.The data can be retrieved as wifior bluetooth
+	2.for training the training set should be in Shapes folder
+	3.for testing it may be tested with data stored in file one by one
+

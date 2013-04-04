@@ -1,0 +1,19 @@
+1.call main
+     repeat:
+	call getdata
+		start server for bluetooth
+		server would read data from like
+			while data is not 'end':
+				read data
+		end connection
+	 	return the data as matrix
+	do filtering
+	do clustering 
+	call simulate
+	print result
+	
+    go to step 1.1 
+2.End 
+		
+				
+			

@@ -36,7 +36,7 @@ def clrscr():
 def log_to_files(filename):
 	from os import chdir,listdir, path
 	fin=open(filename)
-	chdir('/home/sarath/gesture/my_part/Shapes')
+	chdir('/home/sarath/My_PRojects/gesture/Shapes')
 	F=path.basename(filename)[0]
 	j=len(listdir('.'))
 	fout=open(F+str(j)+'.txt','w')

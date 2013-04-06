@@ -36,20 +36,22 @@ def train():
     cPickle.dump(net,open('net.net','w')) 
 
 def test():
-    input,target=get_train_data();
-    input=reshape(input,(-1,42))/10
-    chdir('/home/sarath/gesture/my_part')
-    net=cPickle.load(open('net.net','r'))
-    output = net.sim(input)
-    #after gettig the simulated data checking how well it works
-    err=0
-    out=[[0 for i in range(4)] for j in range(len(output))]
-    for i in range(len(output)):
-        m=max(output[i])
-        for j in range(4):
-            if output[i,j] == m:
-                out[i][j] =1
-        print out[i] == target[i]
+	input,target=get_train_data();
+    	input=reshape(input,(-1,42))/10
+    	chdir('/home/sarath/MY_PRojects/gesture')
+    	net=cPickle.load(open('net.net','r'))
+    	output = net.sim(input)
+    	#after gettig the simulated data checking how well it works
+	err=0
+    	out=[[0 for i in range(4)] for j in range(len(output))]
+	for i in range(len(output)):
+        	m=max(output[i])
+        	for j in range(4):
+            		if output[i,j] == m:
+                		out[i][j] =1
+ 		if out[i] != target[i]:
+			err+=1;
+	print "The Error is :",float(err)/len(input)*100," %"
 
 def simulate(input):
     chdir('/home/sarath/gesture/my_part')

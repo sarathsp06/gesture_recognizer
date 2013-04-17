@@ -63,22 +63,32 @@ def bclient_for_train(filename):
 	
 	sock.close()
 
-def tcp_client():
+def tcp_client(filename):
 	myHost = ''              # ierver machine, '' means local host
 	myPort = 3021                          # listen on a non-reserved port number
 	sockobj = socket(AF_INET, SOCK_STREAM)    
 	sockobj.connect((myHost,myPort))
-	sockobj.send("s,dbskjfkjsfkjfoj lgegnelg oe nlenvloglrg ")
 	sockobj.send('start')
-	sockobj.send('djfdkjfjdbvo lskf  vkeb g')
+	print sockobj.recv(20)
+	try:
+		fin=open(filename);
+	except:
+		print "Unable to open file",filename
+		exit()
+	for i in fin:
+		sockobj.send(i.strip());
+		print i.strip(),"\t---",
+		print sockobj.recv(5)
 	sockobj.send('end')
-
+	sockobj.close()
+	print "Succesfully closed connection ."
 def tcp_server():
 	#"""For Wifi Communiction the client may use  the name sarath as server address"""
 	myHost = '192.168.43.240'              # ierver machine, '' means local host
 	local=''
 	myPort = 3021                          # listen on a non-reserved port number
 	sockobj = socket(AF_INET, SOCK_STREAM)      
+	     
 	try:
 		sockobj.bind((local, myPort))               
 		print 'Bind to port',myPort,'of ',myHost
@@ -88,32 +98,34 @@ def tcp_server():
 	
 	sockobj.listen(1)    
 	print 'listening on tcp',str(sockobj)
-	data=[]                       
+	              
 	try:
 		connection, address = sockobj.accept()  
 		print 'Server connected by', address
 
 		try:
-			line=connection.recv(1024)
-			while 'start' not in line.strip():
-				line = connection.recv(1024)
-			while True:
-               			line = connection.recv(1024)
-				if 'end' in line.strip():
-                      			break
-				else:
-                			for val in line.split(' '):
-                    				if not isNaN(val):
-                        				data.append(float(val))
-            		data=np.reshape(data,[-1,3])
-        	except IOError:
-               		print 'Exception inside '
-		print 'trying to close'
+			line=connection.recv(7)        #receve the essage start
+			connection.send("Accepted")	   #sending acknowledgement 
+			data=[]
+			line = connection.recv(35)     #getmessage
+			while line.strip() != 'end':
+					print "\nRecieved and added ",
+					for val in line.strip().split(' '):
+						if not isNaN(val):
+                					print val,
+                					data.append(float(val))
+					connection.send(line[1]+'OK') #send acknowledgement for that message
+					line = connection.recv(35)		
+			print "Recieved message end"
+			data=np.reshape(data,[-1,3])
+		except Exception,e:
+			print 'Exception inside ',e.messag
 		connection.close()
-		print 'Connection closed'
-	except :
-		print 'Exception out'
+	except Exception,e:
+		print 'Exception while connection',e.message
 	finally:
+		sockobj.close()
+		print data
 		return data
 
 def main():
@@ -122,7 +134,7 @@ def main():
 	elif argv[1] == 'bclient':
         	bclient()
 	elif argv[1] == 'tcp_client':
-    		tcp_client()
+    		tcp_client(argv[2])
 	else:
 		tcp_server()
 

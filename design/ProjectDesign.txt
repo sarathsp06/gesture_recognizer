@@ -1,0 +1,29 @@
+				ProjectDesign
+In gesture recognition using an acceleration sensor, gestures are represented by characteristic patterns of incoming signal data, i.e. vectors representing the current acceleration of the  controller in all three dimensions. Hence, we need a system pipeline preparing and analyzing this vector data in order to train as well as recognize patterns for distinct gestures.For this purpose we revert to the classic recognition pipeline
+
+
+1.Aquire data
+	android-programming
+	Communication
+	accelerometer
+		tcp
+		bluetooth
+	sending data using an android client
+	recieve data at server using python server
+2.Data filtering
+	dft filtering
+		low pass filtering
+			ideal filter
+3.data clustering		
+	kmeans algorithm
+		scipy in python
+4.ann creation and training
+	neurolab python
+	creating neural  network
+	3 layered
+	training
+	something like a fuzzy output 
+	error checking by own function
+	iterative
+	save the net
+5.testing the system

@@ -1,0 +1,23 @@
+				K-means clustering algorithm
+
+In data mining, k-means clustering is a method of cluster analysis which aims to partition n observations into k clusters in which each observation belongs to the cluster with the nearest mean. This results in a partitioning of the data space into Voronoi cells.
+
+The problem is computationally difficult (NP-hard), however there are efficient heuristic algorithms that are commonly employed and converge quickly to a local optimum. These are usually similar to the expectation-maximization algorithm for mixtures of Gaussian distributions via an iterative refinement approach employed by both algorithms. Additionally, they both use cluster centers to model the data, however k-means clustering tends to find clusters of comparable spatial extent, while the expectation-maximization mechanism allows clusters to have different shapes.
+
+CONCEPT BEHIND THE ALGORITHM
+K-means (MacQueen, 1967) is one of the simplest unsupervised learning algorithms that solve the well known clustering problem. The procedure follows a simple and easy way to classify a given data set through a certain number of clusters (assume k clusters) fixed a priori. The main idea is to define k centroids, one for each cluster. These centroids shoud be placed in a cunning way because of different location causes different result. So, the better choice is to place them as much as possible far away from each other. The next step is to take each point belonging to a given data set and associate it to the nearest centroid. When no point is pending, the first step is completed and an early groupage is done. At this point we need to re-calculate k new centroids as barycenters of the clusters resulting from the previous step. After we have these k new centroids, a new binding has to be done between the same data set points and the nearest new centroid. A loop has been generated. As a result of this loop we may notice that the k centroids change their location step by step until no more changes are done. In other words centroids do not move any more.
+
+
+
+The algorithm is composed of the following steps:
+
+	1.Place K points into the space represented by the objects that are being clustered. These points 	represent initial group centroids.
+	2.Assign each object to the group that has the closest centroid.
+	3.When all objects have been assigned, recalculate the positions of the K centroids.
+	4.Repeat Steps 2 and 3 until the centroids no longer move. This produces a separation of the objects into groups from which the metric to be minimized can be calculated.
+
+
+
+It does have some weaknesses:
+
+The way to initialize the means was not specified. The results produced depend on the initial values for the means, and it frequently happens that suboptimal partitions are found. The standard solution is to try a number of different starting points.A popular solution is to normalize each variable by its standard deviation, though this is not always desirable.The results depend on the value of k.So here we partitioned the whole 'n' values for a particular gesture into 14 points by equally deviding the accelerometer data and considered them the centroid of each 14 clusters.

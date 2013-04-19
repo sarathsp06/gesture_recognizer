@@ -64,8 +64,8 @@ def bclient_for_train(filename):
 	sock.close()
 
 def tcp_client(filename):
-	myHost = ''              # ierver machine, '' means local host
-	myPort = 3021                          # listen on a non-reserved port number
+	myHost = ''              # internet server machine, '' means local host
+	myPort = 3021            # to connect to a particular port  number
 	sockobj = socket(AF_INET, SOCK_STREAM)    
 	sockobj.connect((myHost,myPort))
 	sockobj.send('start')
@@ -76,9 +76,10 @@ def tcp_client(filename):
 		print "Unable to open file",filename
 		exit()
 	for i in fin:
-		sockobj.send(i.strip());
-		print i.strip(),"\t---",
-		print sockobj.recv(5)
+		if len(i.strip()) > 4:
+			sockobj.send(i.strip());
+			print i.strip(),"\t---",
+			print sockobj.recv(100)
 	sockobj.send('end')
 	sockobj.close()
 	print "Succesfully closed connection ."
@@ -114,10 +115,13 @@ def tcp_server():
 						if not isNaN(val):
                 					print val,
                 					data.append(float(val))
-					connection.send(line[1]+'OK') #send acknowledgement for that message
+					connection.send(line+'OK') #send acknowledgement 
 					line = connection.recv(35)		
 			print "Recieved message end"
 			data=np.reshape(data,[-1,3])
+			data[:,1]=data[:,1]-9.8
+			data[:,2]= 1
+
 		except Exception,e:
 			print 'Exception inside ',e.messag
 		connection.close()
@@ -125,7 +129,7 @@ def tcp_server():
 		print 'Exception while connection',e.message
 	finally:
 		sockobj.close()
-		print data
+		
 		return data
 
 def main():

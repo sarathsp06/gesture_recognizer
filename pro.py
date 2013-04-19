@@ -42,7 +42,7 @@ def main_():
 	else:
 		while(True):
 			data=getdata()
-			data=filter_xyz()
+			data=filter_xyz(data)
 			data14=cluster(data,14)
 			simulate(data14)
                  

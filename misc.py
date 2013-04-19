@@ -45,7 +45,8 @@ def log_to_files(filename):
 			j+=1
 			fout=open(F+str(j)+'.txt','w')
 		else:
-			fout.write(i)
+			if len(i.strip()) >= 5:
+				fout.write(i)
 	chdir('..')
 
 def print_array(array):

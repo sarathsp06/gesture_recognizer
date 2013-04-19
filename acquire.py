@@ -47,6 +47,7 @@ def getdata_tcp():
 	except:
 		data=[0,0,0]
 	finally:
+		print data
         	return data
 ########################################################
 # the data will be send to the calling function as

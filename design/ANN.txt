@@ -1,0 +1,101 @@
+                         ANN TRAINING
+/*************************************
+neurolab python
+creation and training
+3 layered
+something like a fuzzy output 
+error checking by own function
+iterative
+save the net
+******************************************/
+
+Neurolab
+	NeuroLab - a library of basic neural networks algorithms with flexible network configurations and learning algorithms for Python. To simplify the using of the library, interface is similar to the package of Neural Network Toolbox (NNT) of MATLAB (c). The library is based on the package numpy (http://numpy.scipy.org), some learning algorithms are used scipy.optimize (http://scipy.org).
+
+Eg:
+	# -*- coding: utf-8 -*-
+""" 
+Example of use multi-layer perceptron
+=====================================
+
+Task: Approximation function: 1/2 * sin(x)
+
+"""
+
+import neurolab as nl
+import numpy as np
+
+# Create train samples
+x = np.linspace(-7, 7, 20)
+y = np.sin(x) * 0.5
+
+size = len(x)
+
+inp = x.reshape(size,1)
+tar = y.reshape(size,1)
+
+# Create network with 2 layers and random initialized
+net = nl.net.newff([[-7, 7]],[5, 1])
+
+# Train network
+error = net.train(inp, tar, epochs=500, show=100, goal=0.02)
+
+# Simulate network
+out = net.sim(inp)
+
+# Plot result
+import pylab as pl
+pl.subplot(211)
+pl.plot(error)
+pl.xlabel('Epoch number')
+pl.ylabel('error (default SSE)')
+
+x2 = np.linspace(-6.0,6.0,150)
+y2 = net.sim(x2.reshape(x2.size,1)).reshape(x2.size)
+
+y3 = out.reshape(size)
+
+pl.subplot(212)
+pl.plot(x2, y2, '-',x , y, '.', x, y3, 'p')
+pl.legend(['train target', 'net output'])
+pl.show()
+
+
+Explanation:
+     blah blah elglsw gqw
+
+      vfjehfo g 'q'
+      fk q
+
+
+
+
+      wprup pgwiqp ghoawr fvaw javfjgjwow  ajho iwbkasholi su jnbdkkdkw brw 
+      jwjw 
+      b wrjhlwhoregf owre hwjh ej
+      abfkjw wjrgljhrl ogeo53r;gkwb p
+
+
+
+
+
+
+
+ saving the net
+ 	                            Pickle
+	The pickle module implements a fundamental, but powerful algorithm for serializing and de-serializing a Python object structure. “Pickling” is the process whereby a Python object hierarchy is converted into a byte stream, and “unpickling” is the inverse operation, whereby a byte stream is converted back into an object hierarchy. Pickling (and unpickling) is alternatively known as “serialization”, “marshalling,” [1] or “flattening”, however, to avoid confusion, the terms used here are “pickling” and “unpickling”.
+
+
+Usage
+	To serialize an object hierarchy, you first create a pickler, then you call the pickler’s dump() method. To de-serialize a data stream, you first create an unpickler, then you call the unpickler’s load() method. 
+
+
+1.pickle.dump(obj, file)
+Write a pickled representation of obj to the open file object file. 
+file must have a write() method that accepts a single string argument. It can thus be a file object opened for writing, a StringIO object, or any other custom object that meets this interface.
+
+2.pickle.load(file)
+Read a string from the open file object file and interpret it as a pickle data stream, reconstructing and returning the original object hierarchy. This is equivalent to Unpickler(file).load().
+file must have two methods, a read() method that takes an integer argument, and a readline() method that requires no arguments. Both methods should return a string. Thus file can be a file object opened for reading, a StringIO object, or any other custom object that meets this interface.
+
+This function automatically determines whether the data stream was written in binary mode or not.

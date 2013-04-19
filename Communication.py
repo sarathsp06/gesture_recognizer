@@ -64,7 +64,7 @@ def bclient_for_train(filename):
 	sock.close()
 
 def tcp_client(filename):
-	myHost = ''              # internet server machine, '' means local host
+	myHost = '192.168.43.240'              # internet server machine, '' means local host
 	myPort = 3021            # to connect to a particular port  number
 	sockobj = socket(AF_INET, SOCK_STREAM)    
 	sockobj.connect((myHost,myPort))
@@ -91,7 +91,7 @@ def tcp_server():
 	sockobj = socket(AF_INET, SOCK_STREAM)      
 	     
 	try:
-		sockobj.bind((local, myPort))               
+		sockobj.bind((myHost, myPort))               
 		print 'Bind to port',myPort,'of ',myHost
 	except:
 		print 'not possible at remote'
@@ -108,22 +108,28 @@ def tcp_server():
 			line=connection.recv(7)        #receve the essage start
 			connection.send("Accepted")	   #sending acknowledgement 
 			data=[]
-			line = connection.recv(35)     #getmessage
+			line = connection.recv(35)[1:]    #getmessage
 			while line.strip() != 'end':
-					print "\nRecieved and added ",
+					
+					print "\nRecieved and added "+line+":",
 					for val in line.strip().split(' '):
 						if not isNaN(val):
                 					print val,
                 					data.append(float(val))
 					connection.send(line+'OK') #send acknowledgement 
 					line = connection.recv(35)		
+					line = line[1:]
 			print "Recieved message end"
 			data=np.reshape(data,[-1,3])
 			data[:,1]=data[:,1]-9.8
 			data[:,2]= 1
 
 		except Exception,e:
-			print 'Exception inside ',e.messag
+			print 'Exception inside ',e.message
+			data=np.reshape(data,[-1,3])
+                        data[:,1]=data[:,1]-9.8
+                        data[:,2]= 1
+
 		connection.close()
 	except Exception,e:
 		print 'Exception while connection',e.message

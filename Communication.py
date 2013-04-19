@@ -110,7 +110,6 @@ def tcp_server():
 			data=[]
 			line = connection.recv(35)[1:]    #getmessage
 			while line.strip() != 'end':
-					
 					print "\nRecieved and added "+line+":",
 					for val in line.strip().split(' '):
 						if not isNaN(val):

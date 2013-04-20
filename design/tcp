@@ -1,0 +1,16 @@
+                    TCP
+The Transmission Control Protocol (TCP) is one of the two original core protocols of the Internet protocol suite (IP), and is so common that the entire suite is often called TCP/IP. TCP provides reliable, ordered, error-checked delivery of a stream of octets between programs running on computers connected to an intranet or the public Internet.TCP provides reliable, ordered delivery of a stream of bytes from a program on one computer to another program on another computer. TCP is a connection-oriented, asynchronous, and double-way communication protocol 
+
+
+
+Client /Server Communication using TCP /IP
+           A TCP stream socket server application listens on the network for incoming client request packets. A TCP stream socket client application initiates communication with the server by sending a request packet. When the server receives the request, it processes it and responds. After this initial sequenced message exchange, client and server can exchange data.
+
+The following steps occur when establishing a TCP connection between two computers using sockets:
+
+1. The server instantiates a ServerSocket object, indicating which port number communication is to occur on.
+2. The server invokes the accept() method of the ServerSocket class. This method waits until a client connects to the server on the given port.
+3. After the server is waiting, a client instantiates a Socket object, specifying the server name and port number to connect to.
+4. The constructor of the Socket class attempts to connect the client to the specified server and port number. If communication is established, the client now has a Socket object capable of communicating with the server.
+5. On the server side, the accept() method returns a reference to a new socket on the server that is connected to the client's socket.
+6. After the connections are established, communication can occur using I/O streams. Each socket has both an OutputStream and an InputStream. The client's OutputStream is connected to the server's InputStream, and the client's InputStream is connected to the server's OutputStream. TCP is a two-way communication protocol, so data can be sent across both streams at the same time.

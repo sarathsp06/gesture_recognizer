@@ -24,7 +24,7 @@ Task: Approximation function: 1/2 * sin(x)
 
 import neurolab as nl
 import numpy as np
-
+from pickle import dump
 # Create train samples
 x = np.linspace(-7, 7, 20)
 y = np.sin(x) * 0.5
@@ -39,18 +39,20 @@ net = nl.net.newff([[-7, 7]],[5, 1])
 
 # Train network
 error = net.train(inp, tar, epochs=500, show=100, goal=0.02)
-
+dump(net,open("net.net","w"))
 # Simulate network
 out = net.sim(inp)
 
 # Plot result
 import pylab as pl
+from pickle import load
 pl.subplot(211)
 pl.plot(error)
 pl.xlabel('Epoch number')
 pl.ylabel('error (default SSE)')
 
 x2 = np.linspace(-6.0,6.0,150)
+net=load("net.net")
 y2 = net.sim(x2.reshape(x2.size,1)).reshape(x2.size)
 
 y3 = out.reshape(size)
@@ -62,26 +64,13 @@ pl.show()
 
 
 Explanation:
-     blah blah elglsw gqw
-
-      vfjehfo g 'q'
-      fk q
-
-
+     The neurolab library contains the necessary tools and functions to perform artificial neural network functionalities.Its supported by 'numpy' a python library for numerical operation and matrix arithmatics which is written in c and so have very high performance compared to usual python tools.
+Here a network is first created and then is trained with random weights then the net is stored  with pickle.
+	Here in our program the network doesn't give good or required error on one set of epoches with random weights so the train() function is also called in another loop so that after every set of epoches the error is checked and the error checking for iteration is modified and considerd the output something like a  fuzzy output and out of 4 variables representing 4 gestures in the output of last epoche istaken and largest one is assigned value 1 and all else 0 then its checked with the required target output and error is calculated then this error is considered to determine or decide on another iteration
+Once a satisfiable error is the resulting error loop breaks and net is then stored into permanant storage as a file using pickle
 
 
-      wprup pgwiqp ghoawr fvaw javfjgjwow  ajho iwbkasholi su jnbdkkdkw brw 
-      jwjw 
-      b wrjhlwhoregf owre hwjh ej
-      abfkjw wjrgljhrl ogeo53r;gkwb p
-
-
-
-
-
-
-
- saving the net
+Saving the net for simulation
  	                            Pickle
 	The pickle module implements a fundamental, but powerful algorithm for serializing and de-serializing a Python object structure. “Pickling” is the process whereby a Python object hierarchy is converted into a byte stream, and “unpickling” is the inverse operation, whereby a byte stream is converted back into an object hierarchy. Pickling (and unpickling) is alternatively known as “serialization”, “marshalling,” [1] or “flattening”, however, to avoid confusion, the terms used here are “pickling” and “unpickling”.
 

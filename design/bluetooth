@@ -1,0 +1,24 @@
+                            Client/Server Architecture
+
+Many of the Bluetooth profiles, especially those using Bluetooth low energy technology, are designed using a somewhat traditional client/server architecture. "Server" devices are usually characterized by having data that is needed by some other device. A temperature sensor for example has information that others may wish to know. "Server" devices may also be capable of taking actions upon request or storing information for later use. A heating and cooling thermostat may accept commands to turn on heat, air conditioning, etc. In addition, the thermostat may accept "set points" at which it should automatically switch between its various operating modes.
+
+"Client" devices are the other half of the puzzle. A "client" may be a device that needs information from a server. It may also be the device that commands the heating and cooling system into the requested mode, or provides the set points to allow the system to operate automatically.
+ 
+The steps in communication are
+	Device Discovery
+	Connection Establishment
+	Data Exchange
+	Connection Termination
+
+
+
+
+The protocol use here is RFCOM being simple aswell as having a level of good abstraction being on the top of L2CAP
+
+
+          	Radio frequency communication (RFCOMM)
+The Bluetooth protocol RFCOMM is a simple set of transport protocols, made on top of the L2CAP protocol, providing emulated RS-232 serial ports (up to sixty simultaneous connections to a Bluetooth device at a time). The protocol is based on the ETSI standard TS 07.10.
+RFCOMM is sometimes called serial port emulation. The Bluetooth serial port profile is based on this protocol.RFCOMM provides a simple reliable data stream to the user, similar to TCP. It is used directly by many telephony related profiles as a carrier for AT commands, as well as being a transport layer for OBEX over Bluetooth.Many Bluetooth applications use RFCOMM because of its widespread support and publicly available API on most operating systems. Additionally, applications that used a serial port to communicate can be quickly ported to use RFCOMM
+In the protocol stack, RFCOMM is bound to L2CAP.
+
+[edit]

@@ -4,11 +4,11 @@ In gesture recognition using an acceleration sensor, gestures are represented by
 
 1.Aquire data
 	android-programming
-	Communication
 	accelerometer
+	sending data using an android client
+	Communication
 		tcp
 		bluetooth
-	sending data using an android client
 	recieve data at server using python server
 2.Data filtering
 	dft filtering
@@ -27,3 +27,35 @@ In gesture recognition using an acceleration sensor, gestures are represented by
 	iterative
 	save the net
 5.testing the system
+
+
+Acquiredata
+	The data acquisition is using an android phone which has a built in accelerometr and thus the code to retrieve data from the accelerometer and to send it to the system using tcp/ip protocol is writen.The android program which is written in java upon pushing a button or touching the surface start fetching the accelerometer data from the device accelerometer sensor in which gives the data as a set of 3 floating point values x y and z.
+Here is a snapshot of that
+x	y 	z
+******-<BAvootan da ninte oru ethenkilum gesturinte o/p ivde tabular formil print chey>
+
+upon retrieving each data the client in the android send the data as a string to the server which is in the same network provided using wifi tethering .The table shows that the accelerometer data is purely the accelerometer object based on the force on it so that the acceleration due to gravity is not excluded .The acceleration dueto gravity will be reduced from the y acceleration as it being a constent addition might affect the performance at server.The server is written for data sending via bluetooth and viatcp client .Th server receive the data from client as string and extract three floating point data from it and will reduce the effect of 'g'(acceleratio due  to gravity from the data ).Then these whole data is encapsulkated into a nX3 2-D array.
+
+
+
+
+Data filtering
+		The original data might have noise in it inorder to remove these errors due to small fluctuations it may be considered as some high freequency components and do find dft of the data using 'numpy' module of python and an ideal lowpass filter is applied on it using an emperical valu as freequency threshold,which removes high freequency components in the transformed data.Then inverse transform is applied on the resultant data .
+
+
+<***********BAvootan paste the image of graph 2d and 3d***************************>
+
+
+Data clustering 
+	The data thus filterd is noise-free , or considered to be so.But still its not well defined as the number of accelerometer data for each gesture varies so is not in a good for to fed as the input of any neural network so is clustered using kmeans clustering algorithm.The kmeans is available as a function in the 'Scipy' module in python.The initial cluster centers are found by equally deviding the whole data ito 14 cluster and the kmeans iteratdes for 100 iterations by the time clustering is almost over.
+
+<***********Bavootan put image after clustering***************>
+
+
+Ann creation and training
+	Now the data is in the form acceptable to a Artificial neural network.The ANN is created as a Network with  3 layers the second and the 3rd layers are having trans functions logSig and tanSig which can take any range of input and map into 0 to 1 space,thus can work like a normalizing agent at the hiden layer .After creating a feed forward network with backpropagation the train inputs are fed to it along with the target output.The ann training is an iterative process with number of epoches still the final error depends largly on the initial random weights so after each ann completion error is calculated with an another function considering the output like a fuzzy o/p ,as the error computed by the ann train function is not an intelligent error computing mechanism as the output ranges from 0 to 1 while the required output is 0 or 1 ,the function to calculate error conver each output set to 3 0's and one 1 its by treating the largest value as 1.Then the error thus found is the number of mismatches this number will decide if further iteration is required which will put new random values as weights and start epochs.After the training the net is stored as net.net preserving the data structure using 'pickle' , a module in python.Then upon simulation the net is loaeded using 'pickle' and data is send to it
+
+
+
+<***************The errror function graph here*****************> 

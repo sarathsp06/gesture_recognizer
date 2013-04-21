@@ -32,13 +32,15 @@ def train():
                 er+=1
         print 'Error :',er
     print len(target),er
-    chdir('/home/sarath/gesture/my_part')
+    
+    #chdir('/home/sarath/MY_PRojects/gesture')
+    print "directory changed to gesture"
     cPickle.dump(net,open('net.net','w')) 
 
 def test():
 	input,target=get_train_data();
     	input=reshape(input,(-1,42))/10
-    	chdir('/home/sarath/MY_PRojects/gesture')
+    	chdir('/home/sarath/My_PRojects/gesture')
     	net=cPickle.load(open('net.net','r'))
     	output = net.sim(input)
     	#after gettig the simulated data checking how well it works
@@ -54,8 +56,14 @@ def test():
 	print "The Error is :",float(err)/len(input)*100," %"
 
 def simulate(input):
-    chdir('/home/sarath/gesture/my_part')
-    net=cPickle.load(open('net.net','r'))
+    chdir('/home/sarath/My_PRojects/gesture')
+    print "Succesfully changed directory"
+    try:
+	    net=cPickle.load(open('net.net','r'))
+    except:
+	    print 'Unable to open file net.net'
+	    exit()
+    print 'Succesfully opened file net.net'
     shape=shape_dict()
     in_put=[]
     for i in input:

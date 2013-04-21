@@ -64,11 +64,11 @@ def bclient_for_train(filename):
 	sock.close()
 
 def tcp_client(filename):
-	myHost = '192.168.43.240'              # internet server machine, '' means local host
+	myHost = ''#192.168.43.240'              # internet server machine, '' means local host
 	myPort = 3021            # to connect to a particular port  number
 	sockobj = socket(AF_INET, SOCK_STREAM)    
 	sockobj.connect((myHost,myPort))
-	sockobj.send('start')
+	sockobj.send('1start')
 	print sockobj.recv(20)
 	try:
 		fin=open(filename);
@@ -77,15 +77,15 @@ def tcp_client(filename):
 		exit()
 	for i in fin:
 		if len(i.strip()) > 4:
-			sockobj.send(i.strip());
+			sockobj.send('1'+i.strip());
 			print i.strip(),"\t---",
 			print sockobj.recv(100)
-	sockobj.send('end')
+	sockobj.send('1end')
 	sockobj.close()
 	print "Succesfully closed connection ."
 def tcp_server():
 	#"""For Wifi Communiction the client may use  the name sarath as server address"""
-	myHost = '192.168.43.240'              # ierver machine, '' means local host
+	myHost = ''#'192.168.43.240'              # ierver machine, '' means local host
 	local=''
 	myPort = 3021                          # listen on a non-reserved port number
 	sockobj = socket(AF_INET, SOCK_STREAM)      
@@ -134,7 +134,6 @@ def tcp_server():
 		print 'Exception while connection',e.message
 	finally:
 		sockobj.close()
-		
 		return data
 
 def main():

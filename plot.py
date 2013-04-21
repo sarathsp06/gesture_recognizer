@@ -5,9 +5,9 @@ Created on Tue Feb  5 07:36:55 2013
 
 @author: sarath
 """
-def plot_all(nxdata,nydata,nzdata,xdata=0,ydata=0,zdata=0):
+def plot_all(name,nxdata,nydata,nzdata,xdata=0,ydata=0,zdata=0):
 	print nxdata
-	from pylab import plot,subplot,show,xlabel,title,grid
+	from pylab import plot,subplot,show,xlabel,title,grid,save
 	nc=1
 	if type(xdata) is not int:
 		nc=2
@@ -36,7 +36,7 @@ def plot_all(nxdata,nydata,nzdata,xdata=0,ydata=0,zdata=0):
 	plot(nzdata,nxdata)
 	xlabel('Z vs X')
 	grid(True)
-	show()
+	show();
 
 def plot_3d(nxdata,nydata,nzdata,label="#d-representation"):
 	import matplotlib as mpl

@@ -4,8 +4,9 @@
 Short Description
 ------------------
 The program is intented to do hand gesture recognition using accelerometer data.
-Instead of using computer vision to recognize gesture which i
+Instead of using computer vision to recognize gesture . 
 
+#### Note : It was done as an accademic project with minimal use of  libraries wouldn't recommand anyne using it 
 
 Develop and Tweak
 -----------------
